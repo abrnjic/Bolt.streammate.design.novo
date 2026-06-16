@@ -86,6 +86,7 @@ These are pre-populated in the hosted environment. For local development, copy `
 
 ## Further Reading
 
+- [Logo](./docs/LOGO.md) — SVG assets, favicon, Android icons, React component API, usage rules
 - [Design System](./docs/DESIGN_SYSTEM.md) — colors, typography, spacing, CSS classes
 - [Components](./docs/COMPONENTS.md) — props reference and usage examples
 - [Animations](./docs/ANIMATIONS.md) — keyframes, transition utilities, timing guide

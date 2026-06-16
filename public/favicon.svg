@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <defs>
+    <style>@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@700&amp;display=swap');</style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="100" height="100" fill="#060b18"/>
+
+  <!-- Icon box -->
+  <rect x="14" y="14" width="72" height="72" fill="#000a1e" fill-opacity="0.85" stroke="white" stroke-opacity="0.08" stroke-width="1"/>
+
+  <!-- Top-left bracket -->
+  <polyline points="28,14 14,14 14,28" fill="none" stroke="#00d4ff" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter"/>
+
+  <!-- Bottom-right bracket -->
+  <polyline points="72,86 86,86 86,72" fill="none" stroke="#00d4ff" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter"/>
+
+  <!-- S letter -->
+  <text
+    x="50" y="50"
+    text-anchor="middle"
+    dominant-baseline="central"
+    font-family="Barlow, 'Arial Black', Arial, sans-serif"
+    font-weight="700"
+    font-size="40"
+    fill="#00d4ff"
+  >S</text>
+</svg>

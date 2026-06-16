@@ -1,0 +1,37 @@
+<!--
+  Android Monochrome Icon (Android 12 / API 33+)
+  ───────────────────────────────────────────────
+  Single-layer, white-on-transparent.
+  Android applies its own tint colour over this layer
+  based on the system theme (Material You).
+
+  Canvas:    108dp × 108dp
+  Safe zone: 72dp centered (18–90)
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 108" width="108" height="108">
+  <defs>
+    <style>@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@700&amp;display=swap');</style>
+  </defs>
+
+  <!-- Transparent background -->
+
+  <!-- Icon box outline only (no fill — keeps it clean on any tint) -->
+  <rect x="18" y="18" width="72" height="72" fill="none" stroke="white" stroke-opacity="0.6" stroke-width="1.5"/>
+
+  <!-- Top-left bracket -->
+  <polyline points="30,18 18,18 18,30" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter"/>
+
+  <!-- Bottom-right bracket -->
+  <polyline points="78,90 90,90 90,78" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="square" stroke-linejoin="miter"/>
+
+  <!-- S letter -->
+  <text
+    x="54" y="54"
+    text-anchor="middle"
+    dominant-baseline="central"
+    font-family="Barlow, 'Arial Black', Arial, sans-serif"
+    font-weight="700"
+    font-size="38"
+    fill="white"
+  >S</text>
+</svg>

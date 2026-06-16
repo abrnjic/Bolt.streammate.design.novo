@@ -1,0 +1,13 @@
+<!--
+  Android Adaptive Icon — BACKGROUND LAYER
+  ─────────────────────────────────────────
+  Canvas:    108dp × 108dp (Android required size)
+  This layer is a solid brand-colour fill.
+  It sits behind ic_launcher_foreground.svg.
+
+  Export: solid PNG, no transparency.
+-->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 108 108" width="108" height="108">
+  <!-- Brand background colour -->
+  <rect width="108" height="108" fill="#060b18"/>
+</svg>

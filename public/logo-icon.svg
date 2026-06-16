@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <style>@import url('https://fonts.googleapis.com/css2?family=Barlow:wght@700&amp;display=swap');</style>
+  </defs>
+
+  <!-- Background -->
+  <rect width="512" height="512" fill="#060b18"/>
+
+  <!-- Subtle grid overlay for depth -->
+  <rect width="512" height="512" fill="url(#grid)" opacity="0.03"/>
+
+  <!-- Icon box -->
+  <rect x="76" y="76" width="360" height="360" fill="#000a1e" fill-opacity="0.85" stroke="white" stroke-opacity="0.08" stroke-width="1.5"/>
+
+  <!-- Top-left bracket (60px arm) -->
+  <polyline points="136,76 76,76 76,136" fill="none" stroke="#00d4ff" stroke-width="5" stroke-linecap="square" stroke-linejoin="miter"/>
+
+  <!-- Bottom-right bracket (60px arm) -->
+  <polyline points="376,436 436,436 436,376" fill="none" stroke="#00d4ff" stroke-width="5" stroke-linecap="square" stroke-linejoin="miter"/>
+
+  <!-- S letter centered at 256,256 -->
+  <text
+    x="256" y="256"
+    text-anchor="middle"
+    dominant-baseline="central"
+    font-family="Barlow, 'Arial Black', Arial, sans-serif"
+    font-weight="700"
+    font-size="200"
+    fill="#00d4ff"
+  >S</text>
+</svg>

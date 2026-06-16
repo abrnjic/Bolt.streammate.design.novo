@@ -4,9 +4,10 @@ import Footer from '../components/Footer';
 
 interface LandingPageProps {
   onEnter: () => void;
+  onFooterNav?: (id: string) => void;
 }
 
-export default function LandingPage({ onEnter }: LandingPageProps) {
+export default function LandingPage({ onEnter, onFooterNav }: LandingPageProps) {
   return (
     <div className="min-h-screen flex flex-col relative z-10">
       {/* Top bar */}
@@ -70,7 +71,7 @@ export default function LandingPage({ onEnter }: LandingPageProps) {
         </div>
       </main>
 
-      <Footer activeLink="support" />
+      <Footer activeLink="support" onNavigate={onFooterNav} />
     </div>
   );
 }

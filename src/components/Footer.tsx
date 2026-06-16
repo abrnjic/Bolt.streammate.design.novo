@@ -1,13 +1,15 @@
 interface FooterProps {
   activeLink?: string;
+  onNavigate?: (id: string) => void;
 }
 
-export default function Footer({ activeLink = 'support' }: FooterProps) {
+export default function Footer({ activeLink = 'support', onNavigate }: FooterProps) {
   const links = [
     { id: 'privacy', label: 'Privacy Policy' },
     { id: 'terms', label: 'Terms of Service' },
     { id: 'gdpr', label: 'GDPR Information' },
     { id: 'support', label: 'Support' },
+    { id: 'brand', label: 'Brand Guidelines' },
   ];
 
   return (
@@ -16,6 +18,7 @@ export default function Footer({ activeLink = 'support' }: FooterProps) {
         {links.map((link) => (
           <button
             key={link.id}
+            onClick={() => onNavigate?.(link.id)}
             className={`footer-link ${activeLink === link.id ? 'active' : ''}`}
           >
             {link.label}

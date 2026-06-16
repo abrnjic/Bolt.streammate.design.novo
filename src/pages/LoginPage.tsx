@@ -5,9 +5,10 @@ import Footer from '../components/Footer';
 
 interface LoginPageProps {
   onBack: () => void;
+  onFooterNav?: (id: string) => void;
 }
 
-export default function LoginPage({ onBack }: LoginPageProps) {
+export default function LoginPage({ onBack, onFooterNav }: LoginPageProps) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -211,7 +212,7 @@ export default function LoginPage({ onBack }: LoginPageProps) {
         </div>
       </main>
 
-      <Footer activeLink="support" />
+      <Footer activeLink="support" onNavigate={onFooterNav} />
     </div>
   );
 }

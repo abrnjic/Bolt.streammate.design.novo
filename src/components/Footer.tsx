@@ -10,6 +10,7 @@ export default function Footer({ activeLink = 'support', onNavigate }: FooterPro
     { id: 'gdpr', label: 'GDPR Information' },
     { id: 'support', label: 'Support' },
     { id: 'brand', label: 'Brand Guidelines' },
+    { id: 'android', label: 'Android Design' },
   ];
 
   return (

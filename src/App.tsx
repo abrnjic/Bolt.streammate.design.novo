@@ -3,8 +3,9 @@ import StarField from './components/StarField';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
 import LogoShowcase from './pages/LogoShowcase';
+import AndroidDesign from './pages/AndroidDesign';
 
-type Page = 'landing' | 'login' | 'showcase';
+type Page = 'landing' | 'login' | 'showcase' | 'android';
 
 export default function App() {
   const [page, setPage] = useState<Page>('landing');
@@ -17,6 +18,7 @@ export default function App() {
 
   const handleFooterNav = (id: string) => {
     if (id === 'brand') navigate('showcase');
+    if (id === 'android') navigate('android');
   };
 
   return (
@@ -36,6 +38,9 @@ export default function App() {
       )}
       {page === 'showcase' && (
         <LogoShowcase onBack={() => navigate(prevPage)} />
+      )}
+      {page === 'android' && (
+        <AndroidDesign onBack={() => navigate(prevPage)} />
       )}
     </div>
   );

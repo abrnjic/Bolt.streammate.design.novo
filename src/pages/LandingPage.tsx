@@ -33,7 +33,7 @@ export default function LandingPage({ onEnter, onFooterNav }: LandingPageProps) 
             style={{
               fontFamily: 'Barlow, sans-serif',
               fontWeight: 100,
-              fontSize: 'clamp(2.6rem, 7vw, 5.2rem)',
+              fontSize: 'clamp(2.34rem, 6.3vw, 4.68rem)',
               letterSpacing: '-0.01em',
             }}
           >

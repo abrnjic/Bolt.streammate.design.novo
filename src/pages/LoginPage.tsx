@@ -37,7 +37,7 @@ export default function LoginPage({ onBack, onFooterNav }: LoginPageProps) {
           <ArrowLeft size={13} />
           Back
         </button>
-        <button className="lang-btn">
+        <button type="button" className="lang-btn">
           <Globe size={12} className="text-white/50" />
           <span>Hrvatski</span>
           <ChevronDown size={10} className="text-white/40" />
@@ -78,10 +78,12 @@ export default function LoginPage({ onBack, onFooterNav }: LoginPageProps) {
             <form onSubmit={handleLogin} className="flex flex-col gap-5">
               {/* Email */}
               <div className="flex flex-col gap-1.5">
-                <label style={LABEL_STYLE}>E-MAIL ADRESA</label>
+                <label htmlFor="emailInput" style={LABEL_STYLE}>E-MAIL ADRESA</label>
                 <div className="relative">
                   <input
+                    id="emailInput"
                     type="email"
+                    autoComplete="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="name@streammate.app"
@@ -94,10 +96,12 @@ export default function LoginPage({ onBack, onFooterNav }: LoginPageProps) {
 
               {/* Password */}
               <div className="flex flex-col gap-1.5">
-                <label style={LABEL_STYLE}>LOZINKA</label>
+                <label htmlFor="passwordInput" style={LABEL_STYLE}>LOZINKA</label>
                 <div className="relative">
                   <input
+                    id="passwordInput"
                     type={showPassword ? 'text' : 'password'}
+                    autoComplete="current-password"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="••••••••••••••"
@@ -119,6 +123,8 @@ export default function LoginPage({ onBack, onFooterNav }: LoginPageProps) {
                 <label className="flex items-center gap-2 cursor-pointer">
                   <button
                     type="button"
+                    role="checkbox"
+                    aria-checked={remember}
                     onClick={() => setRemember(!remember)}
                     className="w-4 h-4 rounded-sm flex items-center justify-center flex-shrink-0 transition-colors"
                     style={{

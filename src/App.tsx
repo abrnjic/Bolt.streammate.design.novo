@@ -22,7 +22,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen relative overflow-hidden" style={{ background: '#060b18' }}>
+    <div className="min-h-screen relative overflow-hidden" style={{ background: '#030c18' }}>
       <StarField />
       {page === 'landing' && (
         <LandingPage

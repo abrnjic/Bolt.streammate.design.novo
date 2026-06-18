@@ -125,6 +125,7 @@ export default function LoginPage({ onBack, onFooterNav }: LoginPageProps) {
                     type="button"
                     role="checkbox"
                     aria-checked={remember}
+                    aria-label="Remember session"
                     onClick={() => setRemember(!remember)}
                     className="w-4 h-4 rounded-sm flex items-center justify-center flex-shrink-0 transition-colors"
                     style={{

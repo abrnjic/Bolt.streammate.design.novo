@@ -10,11 +10,13 @@ API reference, props, and usage examples for every component in the project.
 src/
 ├── components/
 │   ├── StarField.tsx    # Background layer — rendered once in App.tsx
-│   ├── Logo.tsx         # Brand mark — used in both pages
-│   └── Footer.tsx       # Bottom bar — used in both pages
+│   ├── Logo.tsx         # Brand mark — used in all pages
+│   └── Footer.tsx       # Bottom bar — used in web pages
 └── pages/
     ├── LandingPage.tsx  # Route: 'landing'
-    └── LoginPage.tsx    # Route: 'login'
+    ├── LoginPage.tsx    # Route: 'login'
+    ├── LogoShowcase.tsx # Route: 'showcase'
+    └── AndroidDesign.tsx # Route: 'android'  ← contains LoadingScreen + LoginScreen
 ```
 
 ---
@@ -23,48 +25,46 @@ src/
 
 **File:** `src/components/StarField.tsx`
 
-Renders 180 decorative star dots as absolutely-positioned `<div>` elements fixed to the viewport. Uses a deterministic pseudo-random number generator (no `Math.random()`) so the star layout is identical on every render and server-side render.
+Renders the background layer: a CSS dot-grid pattern plus a central blue radial glow. Fixed to the viewport, renders once in `App.tsx` and persists across all page transitions.
 
 ### Props
 
-None. This is a pure presentational component with no configuration.
+None. Pure presentational component.
 
 ### Usage
 
 ```tsx
 // Always place as the first child of the root div in App.tsx
-<div className="min-h-screen relative overflow-hidden" style={{ background: '#060b18' }}>
+<div className="min-h-screen relative overflow-hidden" style={{ background: '#030c18' }}>
   <StarField />
   {/* page content */}
 </div>
 ```
 
-### Implementation Details
+### Implementation
 
-Stars are generated at **module level** (outside the component function) so they are computed once at import time, not on every render:
+Two CSS layers stacked inside a `position: fixed; inset: 0` container:
 
-```ts
-const STARS = Array.from({ length: 180 }, (_, i) => {
-  const x       = ((i * 7919 + 31337) % 10000) / 100;  // 0–100 %
-  const y       = ((i * 6271 + 13337) % 10000) / 100;  // 0–100 %
-  const opacity = 0.12 + ((i * 3571) % 100) / 200;      // 0.12–0.62
-  const size    = i % 11 === 0 ? 2 : i % 5 === 0 ? 1.5 : 1; // px
-  const duration = 2.5 + ((i * 1327) % 100) / 25;       // 2.5–6.5 s
-  const delay    = ((i * 2347) % 100) / 20;              // 0–5 s
-  return { x, y, opacity, size, duration, delay };
-});
+```css
+/* Layer 1 — dot grid */
+background-image: radial-gradient(circle, rgba(90,160,220,0.38) 1px, transparent 1px);
+background-size: 28px 28px;
+
+/* Layer 2 — central glow */
+background: radial-gradient(ellipse 70% 55% at 50% 48%,
+  rgba(0,90,200,0.30) 0%,
+  rgba(0,50,140,0.18) 40%,
+  transparent 70%);
 ```
-
-Each star uses the `twinkle` keyframe animation with individual `--star-opacity` CSS custom property for correct opacity interpolation (see [Animations](./ANIMATIONS.md)).
 
 ### Customization
 
-| Concern         | Where to change                          |
-|-----------------|------------------------------------------|
-| Star count      | `Array.from({ length: 180 }, ...)`       |
-| Size ratio      | Modulo conditions (`i % 11`, `i % 5`)    |
-| Brightness      | Opacity formula `0.12 + ((i*3571)%100)/200` |
-| Twinkle speed   | `duration` formula                       |
+| Concern         | Where to change                    |
+|-----------------|------------------------------------|
+| Dot density     | `background-size: 28px 28px`       |
+| Dot brightness  | `rgba(90,160,220,0.38)` alpha value|
+| Glow spread     | `ellipse 70% 55%` values           |
+| Glow color      | `rgba(0,90,200,...)` hue           |
 
 ---
 
@@ -358,6 +358,120 @@ const FEATURE_TAGS = [
   '* Marketplace Themes',
 ];
 ```
+
+---
+
+## Android App Screens
+
+**File:** `src/pages/AndroidDesign.tsx`
+
+Standalone developer reference page that showcases interactive phone mockups for the Android app. Accessed via the Footer "Android" link.
+
+All Android screen components are **private** to `AndroidDesign.tsx` (not exported). They are rendered inside `<PhoneFrame>` wrappers which add the device bezel, side buttons, punch-hole camera, and home indicator.
+
+---
+
+### Screen Navigation Flow
+
+```
+App Launch
+    │
+    ▼
+┌─────────────────────────────────────────────────────────────┐
+│  LOADING SCREEN  (automatic, ~1–2 s)                        │
+│  Auth state check runs in background                        │
+│  No user interaction possible                               │
+└──────────────────────────────────────────────────────────────┘
+    │                           │
+    ▼ Session found             ▼ No session
+  Home Screen              WELCOME SCREEN  (user-initiated)
+                                │
+                                ▼
+                           LOGIN SCREEN
+```
+
+> **Key distinction:** The Loading Screen is automatic and non-interactive. The Welcome Screen is the first place a user can actually do something — it persists until they tap a CTA.
+
+---
+
+### `LoadingScreen` (internal component)
+
+**Purpose:** Splash screen. Shown immediately on app boot while auth state is resolved.
+
+**Rules:**
+- Zero interactive elements — no buttons, no text other than the logo
+- Must never linger longer than necessary — dismiss as soon as auth check resolves
+- Always navigates **forward** (Home or Welcome); never navigates back
+
+```
+┌────────────────────────────┐
+│  [status bar — transparent] │
+│                             │
+│                             │
+│          [LOGO md]          │  ← only element
+│                             │
+│                             │
+│  [home indicator]           │
+└─────────────────────────────┘
+```
+
+| Prop | — | None. Auto-dismiss is wired to the auth listener. |
+
+---
+
+### `WelcomeScreen` (planned / not yet mocked)
+
+**Purpose:** First interactive screen for unauthenticated users. Presents brand identity and provides explicit navigation to Login.
+
+**Rules:**
+- Must have at least one primary CTA button ("Get Started" → LoginScreen)
+- Logo should use `size="lg"` — more visual weight than the Loading Screen logo
+- Optionally include tagline, feature bullets, or a background animation
+- User must actively tap to proceed; never auto-dismisses
+
+```
+┌─────────────────────────────┐
+│  [status bar]               │
+│                             │
+│       [LOGO  lg]            │
+│   "Tagline / value prop"    │
+│                             │
+│   [ GET STARTED → ]  (CTA)  │
+│   [ Learn more    ]  (sec.) │
+│                             │
+│  [home indicator]           │
+└─────────────────────────────┘
+```
+
+> Difference from LoadingScreen at a glance: LoadingScreen = **logo only, automatic**. WelcomeScreen = **logo + text + buttons, user-controlled**.
+
+---
+
+### `LoginScreen` (internal component, interactive mockup)
+
+**Purpose:** Authentication. Three access methods selectable via tab bar.
+
+| Method        | Description                                              |
+|---------------|----------------------------------------------------------|
+| **Code**      | 8-character segmented input (`XXXX–XXXX`) + VERIFY CODE  |
+| **QR Code**   | Camera viewfinder with animated scan line                |
+| **Advanced**  | Collapsible panel — XC Codes (URL/user/pass) or M3U URL  |
+
+Advanced Setup is hidden by default to reduce visual noise on the default view.
+
+---
+
+### `PhoneFrame` (internal component)
+
+Wraps any screen content in a realistic Android phone bezel. Dimensions: **280 × 588 px**. Corner radius: **42 px** (outer) / **35 px** (screen).
+
+```tsx
+<PhoneFrame label="LOADING SCREEN  —  SPLASH">
+  <LoadingScreen />
+</PhoneFrame>
+```
+
+`label` appears below the device in Space Mono, 0.6rem, muted white.
 
 ---
 

@@ -107,8 +107,10 @@ function PhoneFrame({ label, children }: { label: string; children: React.ReactN
   );
 }
 
-// ─── Welcome Screen ────────────────────────────────────────────────────────────
-function WelcomeScreen() {
+// ─── Loading Screen (Splash) ───────────────────────────────────────────────────
+// Shown on app boot while auth state is resolved. Pure brand moment — no interaction.
+// Auto-dismisses: if session exists → Home; if not → Welcome Screen.
+function LoadingScreen() {
   return (
     <div className="flex-1 flex flex-col" style={{ background: '#060b18' }}>
       <StatusBar />
@@ -579,8 +581,8 @@ export default function AndroidDesign({ onBack }: AndroidDesignProps) {
         <section>
           <SectionLabel>SCREEN DESIGNS</SectionLabel>
           <div className="flex flex-wrap justify-center gap-16">
-            <PhoneFrame label="WELCOME SCREEN">
-              <WelcomeScreen />
+            <PhoneFrame label="LOADING SCREEN  —  SPLASH">
+              <LoadingScreen />
             </PhoneFrame>
             <PhoneFrame label="LOGIN SCREEN  —  INTERACTIVE">
               <LoginScreen />
@@ -609,37 +611,121 @@ export default function AndroidDesign({ onBack }: AndroidDesignProps) {
         {/* Screen descriptions */}
         <section>
           <SectionLabel>SCREEN REFERENCE</SectionLabel>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
+          {/* Navigation flow */}
+          <div
+            className="flex items-center justify-center gap-2 mb-8 px-6 py-4 rounded-sm"
+            style={{ background: 'rgba(255,255,255,0.015)', border: '1px solid rgba(255,255,255,0.06)' }}
+          >
+            {[
+              { label: 'App Launch', sub: 'OS boots app' },
+              null,
+              { label: 'Loading Screen', sub: 'Auth check (~1–2 s)', highlight: true },
+              null,
+              { label: 'Welcome Screen', sub: 'No session found', highlight: false },
+              null,
+              { label: 'Login Screen', sub: 'User authenticates', highlight: false },
+            ].map((item, i) =>
+              item === null ? (
+                <div key={i} style={{ color: 'rgba(255,255,255,0.2)', fontSize: '0.7rem' }}>→</div>
+              ) : (
+                <div key={i} className="flex flex-col items-center gap-1 text-center" style={{ minWidth: 80 }}>
+                  <span style={{
+                    fontFamily: 'Space Mono, monospace',
+                    fontSize: '0.58rem',
+                    letterSpacing: '0.06em',
+                    color: item.highlight ? '#ffb400' : 'rgba(255,255,255,0.55)',
+                    fontWeight: item.highlight ? 700 : 400,
+                  }}>{item.label}</span>
+                  <span style={{ fontFamily: 'Space Mono, monospace', fontSize: '0.48rem', color: 'rgba(255,255,255,0.2)', letterSpacing: '0.04em' }}>{item.sub}</span>
+                </div>
+              )
+            )}
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
             {[
               {
-                title: 'Welcome Screen',
-                desc: 'Single-purpose splash. Brand logo centered on the deep-navy background. No buttons, no text — pure identity moment. Transitions automatically to Login after session check.',
-                points: ['Logo centered at md size', 'StarField particle layer (optional)', 'Auto-dismiss after auth check', 'Status bar transparent, light icons'],
+                badge: 'AUTOMATIC',
+                badgeColor: 'rgba(255,180,0,0.15)',
+                badgeBorder: 'rgba(255,180,0,0.3)',
+                badgeText: '#ffb400',
+                title: 'Loading Screen',
+                subtitle: 'Splash / Boot screen',
+                desc: 'Displayed immediately on app launch while the auth state is being resolved. Zero interaction — pure brand moment. The app auto-navigates away: active session goes to Home, no session goes to Welcome Screen.',
+                points: [
+                  'Duration: ~1–2 s (auth check governs timing)',
+                  'Logo centered at md size, no other UI elements',
+                  'Status bar transparent, icons light-coloured',
+                  'Never navigates back — always forward',
+                  'DO NOT add buttons, text, or progress indicators here',
+                ],
               },
               {
+                badge: 'USER-FACING',
+                badgeColor: 'rgba(0,212,255,0.08)',
+                badgeBorder: 'rgba(0,212,255,0.25)',
+                badgeText: '#00d4ff',
+                title: 'Welcome Screen',
+                subtitle: 'Onboarding / Entry point',
+                desc: 'Shown after the Loading Screen when no authenticated session exists. This is the first interactive screen — it presents the brand with a brief value statement and offers explicit navigation to Login.',
+                points: [
+                  'Logo at lg size + tagline or subtitle copy',
+                  'Primary CTA: "Get Started" → Login Screen',
+                  'Secondary CTA (optional): "Learn More" / promo link',
+                  'NOT auto-dismissed — user must tap to continue',
+                  'Distinct from Loading Screen: has content and interaction',
+                ],
+              },
+              {
+                badge: 'INTERACTIVE',
+                badgeColor: 'rgba(80,200,120,0.08)',
+                badgeBorder: 'rgba(80,200,120,0.3)',
+                badgeText: '#50c878',
                 title: 'Login Screen',
+                subtitle: 'Authentication / Access',
                 desc: 'Three-method authentication flow. Code and QR are the primary paths. Manual setup (XC Codes / M3U) is hidden behind Advanced Setup to keep the default view clean.',
                 points: [
                   'Code: 8-char segmented input, XXXX–XXXX',
                   'QR: camera viewfinder with scan animation',
-                  'Advanced Setup: XC Codes (URL/user/pass) or M3U URL',
+                  'Advanced: XC Codes (URL/user/pass) or M3U URL',
                   'Single tap reveals/hides Advanced Setup',
                 ],
               },
             ].map((s) => (
               <div
                 key={s.title}
-                className="rounded-sm p-6"
+                className="rounded-sm p-6 flex flex-col gap-4"
                 style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.07)' }}
               >
-                <h3 style={{ fontFamily: 'Barlow, sans-serif', fontWeight: 400, fontSize: '1rem', color: '#fff', marginBottom: 8 }}>{s.title}</h3>
-                <p style={{ fontFamily: 'Space Mono, monospace', fontSize: '0.62rem', color: 'rgba(255,255,255,0.45)', letterSpacing: '0.03em', lineHeight: 1.8, marginBottom: 14 }}>
+                {/* Badge + title row */}
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <h3 style={{ fontFamily: 'Barlow, sans-serif', fontWeight: 400, fontSize: '1rem', color: '#fff', marginBottom: 3 }}>{s.title}</h3>
+                    <span style={{ fontFamily: 'Space Mono, monospace', fontSize: '0.52rem', color: 'rgba(255,255,255,0.3)', letterSpacing: '0.08em' }}>{s.subtitle}</span>
+                  </div>
+                  <span
+                    className="flex-shrink-0 px-2 py-1 rounded-sm"
+                    style={{
+                      fontFamily: 'Space Mono, monospace',
+                      fontSize: '0.5rem',
+                      letterSpacing: '0.1em',
+                      background: s.badgeColor,
+                      border: `1px solid ${s.badgeBorder}`,
+                      color: s.badgeText,
+                    }}
+                  >
+                    {s.badge}
+                  </span>
+                </div>
+
+                <p style={{ fontFamily: 'Space Mono, monospace', fontSize: '0.62rem', color: 'rgba(255,255,255,0.45)', letterSpacing: '0.03em', lineHeight: 1.8 }}>
                   {s.desc}
                 </p>
                 <ul className="flex flex-col gap-2">
                   {s.points.map((p) => (
                     <li key={p} className="flex items-start gap-2">
-                      <span style={{ color: '#00d4ff', fontSize: '0.55rem', marginTop: 3 }}>+</span>
+                      <span style={{ color: s.badgeText, fontSize: '0.55rem', marginTop: 3, flexShrink: 0 }}>+</span>
                       <span style={{ fontFamily: 'Space Mono, monospace', fontSize: '0.58rem', color: 'rgba(255,255,255,0.4)', letterSpacing: '0.03em', lineHeight: 1.7 }}>{p}</span>
                     </li>
                   ))}

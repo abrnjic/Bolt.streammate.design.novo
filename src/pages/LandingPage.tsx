@@ -23,7 +23,7 @@ export default function LandingPage({ onEnter, onFooterNav }: LandingPageProps) 
       <main className="flex-1 flex flex-col items-center justify-center px-6 pb-16 -mt-8">
         <div className="flex flex-col items-center text-center max-w-4xl">
           {/* Logo */}
-          <div className="animate-fade-up mb-12">
+          <div className="animate-fade-up mb-12" style={{ transform: 'scale(1.1)', transformOrigin: 'center' }}>
             <Logo size="md" />
           </div>
 

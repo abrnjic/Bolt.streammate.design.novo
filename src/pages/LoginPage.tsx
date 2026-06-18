@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { ArrowLeft, Globe, ChevronDown, Mail, Eye, EyeOff, Shield, Check } from 'lucide-react';
-import Logo from '../components/Logo';
 import Footer from '../components/Footer';
 
 interface LoginPageProps {
@@ -47,13 +46,8 @@ export default function LoginPage({ onBack, onFooterNav }: LoginPageProps) {
       {/* Main content */}
       <main className="flex-1 flex flex-col items-center justify-center px-4 pb-20">
         <div className="w-full max-w-[340px] flex flex-col items-center">
-          {/* Logo */}
-          <div className="animate-fade-up mb-7">
-            <Logo size="md" />
-          </div>
-
           {/* Title */}
-          <div className="animate-fade-up-d1 text-center mb-7">
+          <div className="animate-fade-up text-center mb-7">
             <h1
               className="text-white mb-2"
               style={{

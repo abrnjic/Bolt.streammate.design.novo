@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ArrowLeft, Globe, ChevronDown, Mail, Eye, EyeOff, Shield, Check } from 'lucide-react';
 import Footer from '../components/Footer';
+import Logo from '../components/Logo';
 
 interface LoginPageProps {
   onBack: () => void;
@@ -46,19 +47,9 @@ export default function LoginPage({ onBack, onFooterNav }: LoginPageProps) {
       {/* Main content */}
       <main className="flex-1 flex flex-col items-center justify-center px-4 pb-20">
         <div className="w-full max-w-[340px] flex flex-col items-center">
-          {/* Title */}
-          <div className="animate-fade-up text-center mb-7">
-            <h1
-              className="text-white mb-2"
-              style={{
-                fontFamily: 'Barlow, sans-serif',
-                fontWeight: 300,
-                fontSize: '1.65rem',
-                letterSpacing: '0.02em',
-              }}
-            >
-              StreamMate Enterprise
-            </h1>
+          {/* Logo + subtitle */}
+          <div className="animate-fade-up flex flex-col items-center gap-3 mb-7">
+            <Logo size="md" />
             <p style={{ fontFamily: 'Space Mono, monospace', fontSize: '0.68rem', color: 'rgba(255,255,255,0.35)', letterSpacing: '0.04em' }}>
               Built for Media Providers. Designed for Growth.
             </p>

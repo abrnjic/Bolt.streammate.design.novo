@@ -17,7 +17,7 @@ const SIZES = {
 function accentColor(theme: LogoTheme) {
   if (theme === 'white') return '#ffffff';
   if (theme === 'mono')  return 'rgba(255,255,255,0.7)';
-  return '#6B42DE';
+  return '#00d4ff';
 }
 
 export default function Logo({ size = 'md', variant = 'full', theme = 'color' }: LogoProps) {
@@ -51,8 +51,8 @@ export default function Logo({ size = 'md', variant = 'full', theme = 'color' }:
 
   const wordmark = (
     <div className={`${s.text} leading-none tracking-wide`} style={{ fontFamily: 'Barlow, sans-serif' }}>
-      <span className="font-semibold" style={{ color: '#6B42DE' }}>Stream</span>
-      <span className="font-light" style={{ color: '#4A9EC4' }}>Mate</span>
+      <span className="text-white font-semibold">Stream</span>
+      <span className="font-light" style={{ color: 'rgba(255,255,255,0.6)' }}>Mate</span>
     </div>
   );
 

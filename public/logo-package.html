@@ -1,0 +1,513 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StreamMate — Logo Package</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@300;400;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cyan:     #00d4ff;
+      --navy:     #060b18;
+      --navy-mid: #0a1628;
+      --navy-box: #000a1e;
+      --text:     #e8eaf2;
+      --muted:    rgba(232,234,242,0.5);
+      --border:   rgba(255,255,255,0.07);
+    }
+
+    body {
+      background: var(--navy);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 32px 48px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .header-meta { text-align: right; }
+    .header-meta p { font-size: 13px; color: var(--muted); }
+    .header-meta strong { color: var(--text); font-weight: 500; }
+
+    /* ── Layout ── */
+    main { max-width: 1100px; margin: 0 auto; padding: 56px 48px; }
+
+    section { margin-bottom: 72px; }
+
+    h2 {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 24px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── Logo preview cards ── */
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--navy-mid);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .card-canvas {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 48px 32px;
+      min-height: 160px;
+    }
+    .card-canvas.light { background: #f0f0f0; }
+    .card-meta {
+      border-top: 1px solid var(--border);
+      padding: 12px 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .card-meta span { font-size: 12px; color: var(--muted); }
+    .card-meta strong { font-size: 13px; color: var(--text); font-weight: 500; }
+
+    /* ── Inline logo (React-equivalent) ── */
+    .logo-inline {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      user-select: none;
+    }
+    .logo-box {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      background: rgba(0,10,30,0.8);
+      border: 1px solid rgba(255,255,255,0.08);
+    }
+    .logo-box .br {
+      position: absolute;
+      width: 8px; height: 8px;
+    }
+    .logo-box .br-tl { top:0; left:0; border-top: 1.5px solid var(--cyan); border-left: 1.5px solid var(--cyan); }
+    .logo-box .br-br { bottom:0; right:0; border-bottom: 1.5px solid var(--cyan); border-right: 1.5px solid var(--cyan); }
+    .logo-letter { font-family: 'Barlow', sans-serif; font-weight: 700; color: var(--cyan); line-height: 1; }
+    .logo-wordmark { font-family: 'Barlow', sans-serif; line-height: 1; letter-spacing: 0.02em; }
+    .logo-wordmark .w-stream { color: #fff; font-weight: 600; }
+    .logo-wordmark .w-mate   { color: rgba(255,255,255,0.6); font-weight: 300; }
+
+    /* size-sm */
+    .logo-sm .logo-box  { width:34px; height:34px; }
+    .logo-sm .logo-letter { font-size: 16px; }
+    .logo-sm .logo-wordmark { font-size: 18px; }
+    .logo-sm .logo-box .br { width:6px; height:6px; }
+
+    /* size-md */
+    .logo-md .logo-box  { width:46px; height:46px; }
+    .logo-md .logo-letter { font-size: 20px; }
+    .logo-md .logo-wordmark { font-size: 24px; }
+
+    /* size-lg */
+    .logo-lg .logo-box  { width:56px; height:56px; }
+    .logo-lg .logo-letter { font-size: 24px; }
+    .logo-lg .logo-wordmark { font-size: 30px; }
+    .logo-lg .logo-box .br { width:10px; height:10px; }
+
+    /* ── Spec table ── */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+    thead th {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: left;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    tbody td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      vertical-align: middle;
+    }
+    tbody tr:last-child td { border-bottom: none; }
+    code {
+      font-family: 'SF Mono', 'Fira Mono', monospace;
+      font-size: 12px;
+      background: rgba(0,212,255,0.08);
+      color: var(--cyan);
+      padding: 2px 6px;
+      border-radius: 3px;
+    }
+
+    /* ── Color swatches ── */
+    .swatch-row { display: flex; flex-wrap: wrap; gap: 16px; }
+    .swatch {
+      border-radius: 4px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      width: 180px;
+    }
+    .swatch-block { height: 64px; }
+    .swatch-info { padding: 10px 12px; background: var(--navy-mid); }
+    .swatch-info p { font-size: 12px; color: var(--muted); margin: 0; }
+    .swatch-info strong { font-size: 13px; display: block; margin-bottom: 2px; }
+
+    /* ── Do / Don't ── */
+    .rules { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+    .rule-col h3 { font-size: 13px; font-weight: 600; margin-bottom: 12px; }
+    .rule-col.do h3   { color: #4ade80; }
+    .rule-col.dont h3 { color: #f87171; }
+    .rule-col ul { list-style: none; }
+    .rule-col ul li { font-size: 13px; color: var(--muted); padding: 5px 0; padding-left: 18px; position: relative; }
+    .rule-col ul li::before { position: absolute; left: 0; }
+    .rule-col.do   ul li::before { content: "✓"; color: #4ade80; }
+    .rule-col.dont ul li::before { content: "✕"; color: #f87171; }
+
+    /* ── React code block ── */
+    pre {
+      background: var(--navy-mid);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 20px 24px;
+      overflow-x: auto;
+      font-family: 'SF Mono', 'Fira Mono', monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--text);
+    }
+    .kw  { color: #c084fc; }
+    .fn  { color: #60a5fa; }
+    .str { color: #86efac; }
+    .cm  { color: rgba(255,255,255,0.3); }
+
+    /* ── SVG asset previews ── */
+    .svg-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px; }
+    .svg-card { background: var(--navy-mid); border: 1px solid var(--border); border-radius: 4px; overflow: hidden; }
+    .svg-preview { display: flex; align-items: center; justify-content: center; padding: 32px 24px; background: #030810; }
+    .svg-preview img { max-width: 100%; max-height: 120px; }
+    .svg-info { padding: 12px 16px; border-top: 1px solid var(--border); }
+    .svg-info strong { display: block; font-size: 13px; font-weight: 500; margin-bottom: 3px; }
+    .svg-info span { font-size: 12px; color: var(--muted); }
+
+    footer {
+      margin-top: 80px;
+      border-top: 1px solid var(--border);
+      padding: 24px 48px;
+      font-size: 12px;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    @media (max-width: 640px) {
+      header, main { padding-left: 24px; padding-right: 24px; }
+      .rules { grid-template-columns: 1fr; }
+      .header-meta { text-align: left; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <!-- Logo inline (HTML equivalent of <Logo size="md" />) -->
+  <div class="logo-inline logo-md">
+    <div class="logo-box">
+      <span class="br br-tl"></span>
+      <span class="br br-br"></span>
+      <span class="logo-letter">S</span>
+    </div>
+    <div class="logo-wordmark">
+      <span class="w-stream">Stream</span><span class="w-mate">Mate</span>
+    </div>
+  </div>
+  <div class="header-meta">
+    <p><strong>Logo Package</strong> — Designer Handoff</p>
+    <p>StreamMate Enterprise &nbsp;·&nbsp; Generated 2026-06-19</p>
+  </div>
+</header>
+
+<main>
+
+  <!-- ── 1. LIVE VARIANTS ── -->
+  <section>
+    <h2>Logo Variants — Live Render</h2>
+    <div class="preview-grid">
+
+      <!-- full / md / color (default) -->
+      <div class="card">
+        <div class="card-canvas">
+          <div class="logo-inline logo-md">
+            <div class="logo-box">
+              <span class="br br-tl"></span><span class="br br-br"></span>
+              <span class="logo-letter">S</span>
+            </div>
+            <div class="logo-wordmark"><span class="w-stream">Stream</span><span class="w-mate">Mate</span></div>
+          </div>
+        </div>
+        <div class="card-meta"><strong>Full · md · color</strong><span>Default</span></div>
+      </div>
+
+      <!-- full / lg / color -->
+      <div class="card">
+        <div class="card-canvas">
+          <div class="logo-inline logo-lg">
+            <div class="logo-box">
+              <span class="br br-tl"></span><span class="br br-br"></span>
+              <span class="logo-letter">S</span>
+            </div>
+            <div class="logo-wordmark"><span class="w-stream">Stream</span><span class="w-mate">Mate</span></div>
+          </div>
+        </div>
+        <div class="card-meta"><strong>Full · lg · color</strong><span>Hero / splash</span></div>
+      </div>
+
+      <!-- full / sm / color -->
+      <div class="card">
+        <div class="card-canvas">
+          <div class="logo-inline logo-sm">
+            <div class="logo-box">
+              <span class="br br-tl"></span><span class="br br-br"></span>
+              <span class="logo-letter">S</span>
+            </div>
+            <div class="logo-wordmark"><span class="w-stream">Stream</span><span class="w-mate">Mate</span></div>
+          </div>
+        </div>
+        <div class="card-meta"><strong>Full · sm · color</strong><span>Compact nav</span></div>
+      </div>
+
+      <!-- icon only / lg -->
+      <div class="card">
+        <div class="card-canvas">
+          <div class="logo-inline logo-lg">
+            <div class="logo-box">
+              <span class="br br-tl"></span><span class="br br-br"></span>
+              <span class="logo-letter">S</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-meta"><strong>Icon · lg · color</strong><span>App icon, favicon</span></div>
+      </div>
+
+      <!-- wordmark only / md -->
+      <div class="card">
+        <div class="card-canvas">
+          <div class="logo-wordmark" style="font-family:'Barlow',sans-serif;font-size:24px;letter-spacing:0.02em;line-height:1">
+            <span class="w-stream">Stream</span><span class="w-mate">Mate</span>
+          </div>
+        </div>
+        <div class="card-meta"><strong>Wordmark · md</strong><span>Footer, email sig</span></div>
+      </div>
+
+      <!-- full / md / white theme (on light bg) -->
+      <div class="card">
+        <div class="card-canvas light">
+          <div class="logo-inline logo-md">
+            <div class="logo-box" style="background:rgba(6,11,24,0.9);">
+              <span class="br br-tl"></span><span class="br br-br"></span>
+              <span class="logo-letter">S</span>
+            </div>
+            <div class="logo-wordmark" style="font-size:24px;">
+              <span style="color:#060b18;font-weight:600;font-family:'Barlow',sans-serif;">Stream</span><span style="color:rgba(6,11,24,0.5);font-weight:300;font-family:'Barlow',sans-serif;">Mate</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-meta"><strong>Full · md · (light bg)</strong><span>Avoid — dark bg preferred</span></div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── 2. SVG ASSETS ── -->
+  <section>
+    <h2>SVG Asset Files</h2>
+    <div class="svg-grid">
+      <div class="svg-card">
+        <div class="svg-preview"><img src="logo-full.svg" alt="StreamMate full logo" /></div>
+        <div class="svg-info"><strong>logo-full.svg</strong><span>900 × 200 · Full logo + wordmark</span></div>
+      </div>
+      <div class="svg-card">
+        <div class="svg-preview"><img src="logo-icon.svg" alt="StreamMate icon" /></div>
+        <div class="svg-info"><strong>logo-icon.svg</strong><span>512 × 512 · App icon / PWA / Play Store</span></div>
+      </div>
+      <div class="svg-card">
+        <div class="svg-preview"><img src="favicon.svg" alt="StreamMate favicon" /></div>
+        <div class="svg-info"><strong>favicon.svg</strong><span>100 × 100 · Browser tab</span></div>
+      </div>
+      <div class="svg-card">
+        <div class="svg-preview"><img src="android/ic_launcher_foreground.svg" alt="Android foreground" /></div>
+        <div class="svg-info"><strong>ic_launcher_foreground.svg</strong><span>108 dp · Android adaptive — foreground</span></div>
+      </div>
+      <div class="svg-card">
+        <div class="svg-preview"><img src="android/ic_launcher_background.svg" alt="Android background" /></div>
+        <div class="svg-info"><strong>ic_launcher_background.svg</strong><span>108 dp · Android adaptive — background</span></div>
+      </div>
+      <div class="svg-card">
+        <div class="svg-preview"><img src="android/ic_launcher_monochrome.svg" alt="Android monochrome" /></div>
+        <div class="svg-info"><strong>ic_launcher_monochrome.svg</strong><span>108 dp · Android 12+ Material You</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 3. COLOR TOKENS ── -->
+  <section>
+    <h2>Color Tokens</h2>
+    <div class="swatch-row">
+      <div class="swatch">
+        <div class="swatch-block" style="background:#00d4ff;"></div>
+        <div class="swatch-info"><strong>Cyan Accent</strong><p><code>#00d4ff</code></p></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#060b18;"></div>
+        <div class="swatch-info"><strong>Navy Background</strong><p><code>#060b18</code></p></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#000a1e;"></div>
+        <div class="swatch-info"><strong>Icon Box Fill</strong><p><code>#000a1e</code> @ 85%</p></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:#ffffff;"></div>
+        <div class="swatch-info"><strong>"Stream" Text</strong><p><code>#ffffff</code> — Barlow 600</p></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:rgba(255,255,255,0.6);"></div>
+        <div class="swatch-info"><strong>"Mate" Text</strong><p><code>rgba(255,255,255,0.6)</code> — Barlow 300</p></div>
+      </div>
+      <div class="swatch">
+        <div class="swatch-block" style="background:rgba(255,255,255,0.08);"></div>
+        <div class="swatch-info"><strong>Box Border</strong><p><code>rgba(255,255,255,0.08)</code></p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── 4. TYPOGRAPHY ── -->
+  <section>
+    <h2>Typography</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Element</th>
+          <th>Font</th>
+          <th>Weight</th>
+          <th>Usage</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Letter "S"</td>
+          <td>Barlow</td>
+          <td>700 (Bold)</td>
+          <td>Icon box center letter</td>
+        </tr>
+        <tr>
+          <td>"Stream"</td>
+          <td>Barlow</td>
+          <td>600 (SemiBold)</td>
+          <td>First half of wordmark, white</td>
+        </tr>
+        <tr>
+          <td>"Mate"</td>
+          <td>Barlow</td>
+          <td>300 (Light)</td>
+          <td>Second half of wordmark, 60% white</td>
+        </tr>
+        <tr>
+          <td>Google Fonts</td>
+          <td colspan="3"><code>https://fonts.googleapis.com/css2?family=Barlow:wght@300;600;700&display=swap</code></td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ── 5. SIZE REFERENCE ── -->
+  <section>
+    <h2>Size Reference</h2>
+    <table>
+      <thead>
+        <tr><th>Variant</th><th>Icon Box</th><th>Bracket</th><th>Stroke</th><th>Use case</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>sm</code></td><td>34 × 34 px</td><td>6 px arm</td><td>1.5 px</td><td>Compact nav, breadcrumbs</td></tr>
+        <tr><td><code>md</code></td><td>46 × 46 px</td><td>8 px arm</td><td>1.5 px</td><td>Default — top nav, cards</td></tr>
+        <tr><td><code>lg</code></td><td>56 × 56 px</td><td>10 px arm</td><td>1.5 px</td><td>Hero, loading splash</td></tr>
+        <tr><td>SVG icon</td><td>360 × 360 dp (in 512)</td><td>60 dp arm</td><td>5 px</td><td>App icon, Play Store</td></tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ── 6. REACT COMPONENT ── -->
+  <section>
+    <h2>React Component API — Logo.tsx</h2>
+    <pre><span class="cm">// Props</span>
+<span class="kw">type</span> LogoSize    = <span class="str">'sm'</span> | <span class="str">'md'</span> | <span class="str">'lg'</span>
+<span class="kw">type</span> LogoVariant = <span class="str">'full'</span> | <span class="str">'icon'</span> | <span class="str">'wordmark'</span>
+<span class="kw">type</span> LogoTheme   = <span class="str">'color'</span> | <span class="str">'white'</span> | <span class="str">'mono'</span>
+
+<span class="cm">// Usage examples</span>
+&lt;<span class="fn">Logo</span> /&gt;                                          <span class="cm">// full · md · color (default)</span>
+&lt;<span class="fn">Logo</span> <span class="fn">size</span>=<span class="str">"lg"</span> /&gt;                                  <span class="cm">// hero / splash</span>
+&lt;<span class="fn">Logo</span> <span class="fn">variant</span>=<span class="str">"icon"</span> <span class="fn">size</span>=<span class="str">"sm"</span> /&gt;                  <span class="cm">// icon only — compact nav</span>
+&lt;<span class="fn">Logo</span> <span class="fn">variant</span>=<span class="str">"wordmark"</span> <span class="fn">size</span>=<span class="str">"sm"</span> /&gt;             <span class="cm">// wordmark only — footer</span>
+&lt;<span class="fn">Logo</span> <span class="fn">theme</span>=<span class="str">"white"</span> /&gt;                              <span class="cm">// white accent (solid dark bg)</span>
+&lt;<span class="fn">Logo</span> <span class="fn">variant</span>=<span class="str">"icon"</span> <span class="fn">size</span>=<span class="str">"lg"</span> <span class="fn">theme</span>=<span class="str">"white"</span> /&gt;    <span class="cm">// loading spinner companion</span></pre>
+  </section>
+
+  <!-- ── 7. DO / DON'T ── -->
+  <section>
+    <h2>Usage Rules</h2>
+    <div class="rules">
+      <div class="rule-col do">
+        <h3>Do</h3>
+        <ul>
+          <li>Use on dark backgrounds (#060b18 or darker)</li>
+          <li>Maintain aspect ratio — never stretch</li>
+          <li>Use the React component in-app</li>
+          <li>Use SVG files for external / non-React contexts</li>
+          <li>Min clearspace = bracket height on all sides</li>
+        </ul>
+      </div>
+      <div class="rule-col dont">
+        <h3>Don't</h3>
+        <ul>
+          <li>Don't change #00d4ff bracket/letter color</li>
+          <li>Don't place on light backgrounds without dark wrapper</li>
+          <li>Don't use "S" alone without brackets</li>
+          <li>Don't add drop shadows, glows, or filters</li>
+          <li>Don't reorder "Stream"/"Mate" or swap font weights</li>
+          <li>Don't use icon below 28 px wide</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  StreamMate Enterprise &nbsp;·&nbsp; Logo Package &nbsp;·&nbsp; 2026-06-19
+  &nbsp;·&nbsp; All assets in <code>/public/</code> &nbsp;·&nbsp; React component: <code>src/components/Logo.tsx</code>
+</footer>
+
+</body>
+</html>
